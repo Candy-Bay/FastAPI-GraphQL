@@ -14,7 +14,7 @@ class Query(graphene.ObjectType):
     say_hello = graphene.String(name=graphene.String(default_value='Test Driven'))
     list_users = graphene.List(UserGrapheneModel)
     get_single_user = graphene.Field(UserGrapheneModel, user_id=graphene.NonNull(graphene.Int))
-
+    get_single_user_by_address = graphene.Field(UserGrapheneModel, address=graphene.NonNull(graphene.String))
     # Define method for resolving querie
     # resolve_<query_definition_name>
     @staticmethod
@@ -29,6 +29,10 @@ class Query(graphene.ObjectType):
     @staticmethod
     def resolve_get_single_user(parent, info, user_id):
         return User.find_or_fail(user_id)
+
+    @staticmethod
+    def resolve_get_single_user_by_address(parent, info, address):
+        return db.table('users').where('address', address).first()
 
 
 def updateUser():
