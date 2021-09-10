@@ -8,7 +8,7 @@ DATABASES = {
     "mysql": {
         "driver": "mysql",
         "host": "localhost",
-        "database": "testdb",
+        "database": "candy",
         "user": os.getenv('MYSQL_USERNAME'),
         "password": os.getenv('MYSQL_PASSWORD'),
         "prefix": "",

@@ -10,10 +10,8 @@ class CreateUsersTable(Migration):
         with self.schema.create('users') as table:
             table.increments('id')
             table.timestamps()
-            table.string('name')
-            table.text('address')
-            table.string('phone_number', 11)
-            table.enum('sex', ['male', 'female'])
+            table.string('address', 42)
+            table.string('discordID', 18)
 
     def down(self):
         """
