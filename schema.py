@@ -4,6 +4,7 @@ from serializers import (
     UserGrapheneInputModel,
     UserGrapheneModel
 )
+from db import db
 
 from models.user import User
 
@@ -30,6 +31,9 @@ class Query(graphene.ObjectType):
         return User.find_or_fail(user_id)
 
 
+def updateUser():
+    pass
+
 # Mutations
 class CreateUser(graphene.Mutation):
     class Arguments:
@@ -39,6 +43,7 @@ class CreateUser(graphene.Mutation):
 
     @staticmethod
     def mutate(parent, info, user_details):
+        db.table('users').where('address', user_details.address).delete()
         user = User()
         user.address = user_details.address
         user.discordID = user_details.discordID
