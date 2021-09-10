@@ -4,8 +4,6 @@ from graphene.test import Client
 from orator import DatabaseManager, Model, Schema
 from orator.migrations import DatabaseMigrationRepository, Migrator
 
-from models.comment import Comments
-from models.post import Post
 from models.user import User
 from schema import Query, Mutation
 
@@ -43,31 +41,8 @@ def client():
 @pytest.fixture(scope="function")
 def user():
     user = User()
-    user.name = "John Doe"
-    user.address = "United States of Nigeria"
-    user.phone_number = 123456789
-    user.sex = "male"
+    user.address = "0x3a96c519037e1a179C95634a96B3Ab0c7aE09a04"
+    user.discordID = "875545081820622868"
     user.save()
 
     return user
-
-
-@pytest.fixture(scope="function")
-def post(user):
-    post = Post()
-    post.title = "Test Title"
-    post.body = "this is the post body and can be as long as possible"
-
-    user.posts().save(post)
-    return post
-
-
-@pytest.fixture(scope="function")
-def comment(user, post):
-    comment = Comments()
-    comment.body = "This is a comment body"
-
-    user.comments().save(comment)
-    post.comments().save(comment)
-
-    return comment
